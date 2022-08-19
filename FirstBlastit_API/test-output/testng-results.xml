@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-08-19T12:32:44 IST" name="Suite1" finished-at="2022-08-19T12:32:48 IST" duration-ms="3998">
+    <groups>
+    </groups>
+    <test started-at="2022-08-19T12:32:44 IST" name="Test1" finished-at="2022-08-19T12:32:48 IST" duration-ms="3998">
+      <class name="Development.Registered">
+        <test-method is-config="true" signature="Initializing()[pri:0, instance:Development.Registered@7c7a06ec]" started-at="2022-08-19T12:32:43 IST" name="Initializing" finished-at="2022-08-19T12:32:44 IST" duration-ms="940" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Initializing -->
+        <test-method signature="OTP_Verification(java.lang.String)[pri:0, instance:Development.Registered@7c7a06ec]" started-at="2022-08-19T12:32:44 IST" name="OTP_Verification" finished-at="2022-08-19T12:32:48 IST" duration-ms="3939" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[E:\\Eclipse_project\\FirstBlastit_API\\src\\test\\resources\\API_Data\\API_Data .xlsx]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- OTP_Verification -->
+      </class> <!-- Development.Registered -->
+    </test> <!-- Test1 -->
+  </suite> <!-- Suite1 -->
+</testng-results>
