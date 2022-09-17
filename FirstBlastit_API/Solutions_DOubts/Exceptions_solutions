@@ -1,0 +1,3 @@
+A- Cannot inject @Test annotated Method
+Reason: As passed parameter inside the method .
+Solution: Create an @parameter annotation before the "@test " and passed the value from XML file ."https://youtu.be/DDQbS9cy9bY" s
