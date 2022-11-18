@@ -47,11 +47,11 @@ public class Registered {
 	
 	
 	@Test(enabled=true)
-	@Parameters("file_location")
-	public void OTP_Verification(String output ) throws IOException {
+	@Parameters("FileLocation")
+	public void OTP_Verification( String FileLocation) throws IOException {
 
 
-		FileInputStream fl = new FileInputStream(output);
+		FileInputStream fl = new FileInputStream(FileLocation);
 		System.out.println("Sheet path " + fl);
 		wb = new XSSFWorkbook(fl);
 		st = wb.getSheet("NewUser");

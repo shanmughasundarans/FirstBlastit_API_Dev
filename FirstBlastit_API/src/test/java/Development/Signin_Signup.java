@@ -10,6 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
@@ -19,7 +20,7 @@ import io.restassured.specification.RequestSpecification;
 
 public class Signin_Signup {
 	public static String BaseURL = ("https://dev.firstblastit.com");
-	public static String output = ("E:\\Eclipse_project\\FirstBlastit_API\\src\\test\\resources\\API_Data\\API_Data .xlsx");
+	public static String output = ("E:\\GIT_HUB\\FirstBlastit_API\\FirstBlastit_API\\src\\test\\resources\\API_Data\\API_Data .xlsx");
 	
 	//public static String file_location = "C:\\\\\\\\Users\\\\\\\\Sparkout QA\\\\\\\\git\\\\\\\\FirstBlastit_API\\\\\\\\Firstblastit\\\\\\\\Data\\\\\\\\API_Data.xlsx";
 
@@ -30,6 +31,7 @@ public class Signin_Signup {
 	public 	String otp ;
 	public String pritty;
 	@Test
+	//@Parameters({"Ft"})
 	public void Login_reg() throws IOException  {
 		
 	
@@ -44,8 +46,31 @@ public class Signin_Signup {
 		wb = new XSSFWorkbook(fl);
 		 st = wb.getSheet("Login");
 	    System.out.println("sheet = "+ st);
+	    
+	    
 		Iterator<Row> iterator  = st.rowIterator();
+		
 	   Row sheet = st.getRow(1);
+	   int g = sheet.getLastCellNum();
+	   System.out.println(g);
+			   
+//	   String v = sheet.toString();
+//	   
+//	  for (Cell cell : sheet) {
+//		  
+//		 // boolean i = sheet.iterator().hasNext();
+//		  String y = cell.getStringCellValue();
+//		  
+//		  System.out.println(y);
+//		  
+//		
+//	}
+	   
+	
+
+	 
+		   
+	   
 	     String payload1 = sheet.getCell(2).getStringCellValue();
 		 System.out.println("cell = "+ payload1);
 		request.headers("Content-Type","application/json");
@@ -94,11 +119,10 @@ public class Signin_Signup {
 		
 		FileOutputStream fileOut = new FileOutputStream(output);
 		wb.write(fileOut);
-		
-
-		
 	}
 
+		
+	
 	public boolean validate() {
 		// TODO Auto-generated method stub
 		return validate;
