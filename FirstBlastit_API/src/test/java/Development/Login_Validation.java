@@ -1,25 +1,25 @@
 package Development;
+
 import java.io.IOException;
 
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Login_Validation extends Signin_Signup {
-	
-	@Test
-	@Parameters({"Ft"})
-	public void Existing (String Ft) throws IOException {
-		Signin_Signup o = new Signin_Signup();
-//		if( ) {
-//			
-			
-			
-		//}
-		//o.Login_reg(Ft);
-		
-		
-		
-		System.out.println("value: "+o.validate());
+public class Login_Validation {
+	@Test(priority = 1, enabled = true)
+	public void UserValidation() throws IOException {
+		Signin_Signup one = new Signin_Signup();
+		one.Login_reg();
+		one.Response_Message.equalsIgnoreCase("Login successfully");
+		System.out.println("Loggedin successfully");
+	}
 
-}
+	@Test(priority = 2, enabled = true, dependsOnMethods = { "UserValidation" })
+	public void OTP_Verfication() throws IOException {
+		VerifyOTP two = new VerifyOTP();
+		two.Initializing();
+		two.OTP_Verification();
+		System.out.println("OTP Verifed");
+
+	}
+
 }

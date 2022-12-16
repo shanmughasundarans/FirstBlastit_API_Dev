@@ -17,18 +17,17 @@ import io.restassured.http.Headers;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 
-public class Registered {
-	
-	
-	public static XSSFWorkbook wb;
-	 public static XSSFSheet st;
-	 public static RequestSpecification request;
-	@BeforeSuite
-	public void   Initializing() {
-		RestAssured.baseURI=("https://dev.firstblastit.com");
-		Header acceptHeader = new Header("Accept","application/json");
-		Header contentTypeHeader = new Header ("Content-Type","application/json");
+public class VerifyOTP {
 
+	public static XSSFWorkbook wb;
+	public static XSSFSheet st;
+	public static RequestSpecification request;
+
+	@BeforeSuite
+	public void Initializing() {
+		RestAssured.baseURI = ("https://dev.firstblastit.com");
+		Header acceptHeader = new Header("Accept", "application/json");
+		Header contentTypeHeader = new Header("Content-Type", "application/json");
 
 		ArrayList<Header> header = new ArrayList<>();
 		header.add(contentTypeHeader);
@@ -36,65 +35,57 @@ public class Registered {
 
 		Headers allheaders = new Headers(header);
 
-
-		//RequestSpecification request = RestAssured.given().headers(allheaders);
+		// RequestSpecification request = RestAssured.given().headers(allheaders);
 
 		request = RestAssured.given().headers(allheaders);
 
-
-
 	}
-	
-	
-	@Test(enabled=true)
-	@Parameters("FileLocation")
-	public void OTP_Verification( String FileLocation) throws IOException {
 
+	@Test(enabled = true)
+	//@Parameters ({"Filelocation"})
+	public void OTP_Verification() throws IOException {
 
-		FileInputStream fl = new FileInputStream(FileLocation);
+		FileInputStream fl = new FileInputStream("E:\\\\GIT_HUB\\\\FirstBlastit_API\\\\FirstBlastit_API\\\\src\\\\test\\\\resources\\\\API_Data\\\\API_Data .xlsx");
 		System.out.println("Sheet path " + fl);
 		wb = new XSSFWorkbook(fl);
 		st = wb.getSheet("NewUser");
-		System.out.println("sheet = "+ st);
+		System.out.println("sheet = " + st);
 
 		Row sheet = st.getRow(1);
 		st = wb.getSheet("Login");
-		//Getting Authorization id from parent 
+		// Getting Authorization id from parent
 		Row Get_parent_sheetdetails_auth = st.getRow(1);
 		String get_parent_sheet_auth = Get_parent_sheetdetails_auth.getCell(4).getStringCellValue();
-		//Getting otp id from parent 
+		// Getting otp id from parent
 		Row Get_parent_sheetdetails_otp = st.getRow(1);
 		String get_parent_sheet_otp = Get_parent_sheetdetails_otp.getCell(6).getStringCellValue();
-		System.out.println("Got:"+ get_parent_sheet_otp);
-		//Getting paylod from new sheet
+		System.out.println("Got:" + get_parent_sheet_otp);
+		// Getting paylod from new sheet
 		st = wb.getSheet("NewUser");
 		Row get_reg_payload = st.getRow(1);
 
 		String get_reg_payload_cell = get_reg_payload.getCell(2).getStringCellValue();
 
-		System.out.println("cell value :" +get_reg_payload_cell);
-		//appending the otp into payload
+		System.out.println("cell value :" + get_reg_payload_cell);
+		// appending the otp into payload
 
-		int indexToInsert= 13;
-		StringBuilder s1= new StringBuilder(get_reg_payload_cell);
+		int indexToInsert = 13;
+		StringBuilder s1 = new StringBuilder(get_reg_payload_cell);
 
-		StringBuilder s2= new StringBuilder(get_parent_sheet_otp);
+		StringBuilder s2 = new StringBuilder(get_parent_sheet_otp);
 
 		s1.insert(indexToInsert, s2.toString());
-		String raw_payload= s1.toString();
+		String raw_payload = s1.toString();
 
-
-		request.header("Authorization","Bearer " +get_parent_sheet_auth);
-		io.restassured.response.Response  Method  = request.log().all().body(raw_payload).when().post("/api/verify-otp");
+		request.header("Authorization", "Bearer " + get_parent_sheet_auth);
+		io.restassured.response.Response Method = request.log().all().body(raw_payload).when().post("/api/verify-otp");
 
 		System.out.println(Method.getStatusCode());
 		ResponseBody body = Method.body();
-		
-		int Response_status=Method.getStatusCode();
+
+		int Response_status = Method.getStatusCode();
 		String pritty = body.asPrettyString();
-		System.out.println("Receiveed_Response ="+ pritty);
+		System.out.println("Receiveed_Response =" + pritty);
 	}
-	
-	
 
 }
